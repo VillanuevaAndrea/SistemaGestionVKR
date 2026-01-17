@@ -42,8 +42,11 @@ Pagos QR: Integración con API de Mercado Pago para agilizar el cierre de ventas
 # Stack Tecnológico
 
 Backend: Java 17 con Spring Boot. Se utiliza Spring Data JPA para el acceso a datos y Spring Security para la protección de recursos según roles.
+
 Arquitectura: Diseño basado en arquitectura de capas (API/Controller, Business/Service, Data/Repository). Se utiliza un modelo de dominio donde la lógica de negocio reside en las entidades, apoyado por DTOs para la transferencia de datos y patrones como State para el ciclo de vida de la venta.
+
 Base de Datos: PostgreSQL. Se eligió por su robustez para manejar relaciones complejas y garantizar transacciones ACID, asegurando que los pagos impacten correctamente en el stock y el crédito.
+
 Frontend: Aplicación web desarrollada con React + TypeScript. La interfaz ofrece una experiencia de usuario fluida, interactuando con el backend mediante APIs REST (JSON).
 
 
