@@ -1,9 +1,9 @@
-## VKR - Sistema de Gestion de Ventas 
+# VKR - Sistema de Gestion de Ventas 
 
 VKR es una solución integral de gestión diseñada para la tienda física VIKIARA. El sistema no solo administra productos, sino que resuelve el problema crítico del negocio: la gestión de ventas reservadas mediante crédito exclusivo y la trazabilidad de pagos parciales.
 A diferencia de un e-commerce tradicional, este sistema gestiona un flujo complejo de estados para garantizar que el stock y el crédito del cliente estén siempre sincronizados.
 
-# Gestión de Estados (Patrón State)
+# Gestión de Estados 
 
 Se implementó el patrón State para controlar las transiciones válidas de una venta:
 INICIADA: Venta creada, pendiente de pago total o definición de reserva.
