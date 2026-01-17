@@ -6,10 +6,15 @@ A diferencia de un e-commerce tradicional, este sistema gestiona un flujo comple
 # Gestión de Estados 
 
 Se implementó el patrón State para controlar las transiciones válidas de una venta:
+
 INICIADA: Venta creada, pendiente de pago total o definición de reserva.
+
 RESERVADA: Estado exclusivo para clientes con crédito; permite pagos parciales durante un período de hasta 90 días.
+
 PAGADA: Venta finalizada tras recibir el pago total.
+
 CANCELADA/RECHAZADA: Gestión automática de liberación de stock si la reserva vence o el crédito es insuficiente.
+
 
 # Interfaz Operativa
 
@@ -19,25 +24,33 @@ La interfaz permite al empleado ejecutar "Nuevas Ventas" de forma ágil, visuali
 
 # Sistema de Crédito y Confiabilidad
 Segmentación de Clientes: Los clientes se clasifican en Registrados, Confiables o No Confiables mediante reglas configurables por el dueño.
+
 Reservas Exclusivas: Solo clientes "Confiables" pueden iniciar ventas en estado RESERVADA.
+
 Saldo a Favor: Gestión automatizada de saldos positivos en caso de cambios por productos de menor valor.
 
 # Control de Inventario 
 
 Para soportar las reservas de larga duración (90 días), el stock se maneja en tres niveles:
+
 Disponible: Listo para venta inmediata.
+
 Reservado: Comprometido en una venta con pagos parciales en curso.
+
 Confirmado: Vendido definitivamente tras completar el pago total.
 
-# Notificaciones Inteligentes (Strategy + Adapter)
+# Notificaciones Inteligentes 
 
 El sistema dispara alertas de Stock Bajo y recordatorios de Vencimiento de Reservas a través de múltiples canales (Email/WhatsApp) configurables, sin acoplar la lógica de negocio a los proveedores externos.
 
 # Funcionalidades Clave
 
 Gestión de Cambios y Devoluciones: Proceso que permite cancelar ventas pagadas y generar saldos a favor o cobros de diferencia de forma automática.
+
 RBAC (Seguridad): Separación de permisos entre Dueños y Empleados para proteger la configuración de reglas de crédito.
+
 Pagos QR: Integración con API de Mercado Pago para agilizar el cierre de ventas.
+
 
 # Stack Tecnológico
 
