@@ -1,35 +1,47 @@
-##VKR - Sistema de Gestion de Ventas 
+## VKR - Sistema de Gestion de Ventas 
 
-Sistema integral de gestión para tiendas físicas (VIKIARA) desarrollado con una arquitectura orientada al dominio. El sistema centraliza la administración de inventario complejo, ciclo de vida de ventas con crédito y fidelización de clientes.
+VKR es una solución integral de gestión diseñada para la tienda física VIKIARA. El sistema no solo administra productos, sino que resuelve el problema crítico del negocio: la gestión de ventas reservadas mediante crédito exclusivo y la trazabilidad de pagos parciales.
+A diferencia de un e-commerce tradicional, este sistema gestiona un flujo complejo de estados para garantizar que el stock y el crédito del cliente estén siempre sincronizados.
 
-🖼️ Interfaz del Sistema (Módulo de Productos)
-La interfaz permite una gestión granular de existencias, soportando múltiples variantes por artículo.
-Vista del catálogo: Búsqueda dinámica, filtros por categoría y gestión de variantes (talle/color) con control de stock mínimo.
+# Gestión de Estados (Patrón State)
+Se implementó el patrón State para controlar las transiciones válidas de una venta:
+INICIADA: Venta creada, pendiente de pago total o definición de reserva.
+RESERVADA: Estado exclusivo para clientes con crédito; permite pagos parciales durante un período de hasta 90 días.
+PAGADA: Venta finalizada tras recibir el pago total.
+CANCELADA/RECHAZADA: Gestión automática de liberación de stock si la reserva vence o el crédito es insuficiente.
+
+#Interfaz Operativa
+La interfaz permite al empleado ejecutar "Nuevas Ventas" de forma ágil, visualizando en tiempo real el stock disponible, reservado y confirmado.
+
+# Decisiones de Diseño Críticas
+# Sistema de Crédito y Confiabilidad
+Segmentación de Clientes: Los clientes se clasifican en Registrados, Confiables o No Confiables mediante reglas configurables por el dueño.
+Reservas Exclusivas: Solo clientes "Confiables" pueden iniciar ventas en estado RESERVADA.
+Saldo a Favor: Gestión automatizada de saldos positivos en caso de cambios por productos de menor valor.
+
+#Control de Inventario 
+Para soportar las reservas de larga duración (90 días), el stock se maneja en tres niveles:
+Disponible: Listo para venta inmediata.
+Reservado: Comprometido en una venta con pagos parciales en curso.
+Confirmado: Vendido definitivamente tras completar el pago total.
+
+#Notificaciones Inteligentes (Strategy + Adapter)
+El sistema dispara alertas de Stock Bajo y recordatorios de Vencimiento de Reservas a través de múltiples canales (Email/WhatsApp) configurables, sin acoplar la lógica de negocio a los proveedores externos.
+
+ #Funcionalidades Clave
+Gestión de Cambios y Devoluciones: Proceso que permite cancelar ventas pagadas y generar saldos a favor o cobros de diferencia de forma automática.
+RBAC (Seguridad): Separación de permisos entre Dueños y Empleados para proteger la configuración de reglas de crédito.
+Pagos QR: Integración con API de Mercado Pago para agilizar el cierre de ventas.
+
+#Stack Tecnológico
+Backend: Java 17, Spring Boot 3.x, Spring Data JPA, Spring Security.
+Arquitectura: Basada en capas con un Modelo de Dominio Rico orientado a objetos.
+Base de Datos: PostgreSQL (Transacciones ACID para asegurar que cada pago impacte correctamente en la deuda del cliente y el stock).
+Frontend: SPA con React + TypeScript enfocado en la usabilidad profesional.
+
+Backend: Java 17 con Spring Boot. Se utiliza Spring Data JPA para el acceso a datos y Spring Security para la protección de recursos según roles.
+Arquitectura: Diseño basado en arquitectura de capas (API/Controller, Business/Service, Data/Repository). Se utiliza un modelo de dominio donde la lógica de negocio reside en las entidades, apoyado por DTOs para la transferencia de datos y patrones como State para el ciclo de vida de la venta.
+Base de Datos: PostgreSQL. Se eligió por su robustez para manejar relaciones complejas y garantizar transacciones ACID, asegurando que los pagos impacten correctamente en el stock y el crédito.
+Frontend: Aplicación web desarrollada con React + TypeScript. La interfaz ofrece una experiencia de usuario fluida, interactuando con el backend mediante APIs REST (JSON).
 
 
-🛠️ Arquitectura y Decisiones de Diseño
-El sistema se diseñó priorizando el bajo acoplamiento y la escalabilidad funcional.
-
-🔹 Gestión de Ventas y Reservas (Patrón State)
-Se implementó el patrón State para gestionar el ciclo de vida de las ventas. Esto permite transiciones seguras entre estados como:
-INICIADA → RESERVADA: Reservas exclusivas para clientes confiables mediante crédito.
-RESERVADA → PAGADA: Soporte de pagos parciales hasta completar el total.
-STOCK DINÁMICO: El inventario transiciona entre estados Disponible, Reservado y Confirmado para evitar sobreventas durante los 90 días de validez de una reserva.
-
-🔹 Modelo de Dominio Normalizado
-Productos: Separación de entidad Producto de sus atributos (Categoría, Subcategoría, Detalle) para facilitar reportes y mantener la consistencia de datos.
-Clientes y Confianza: Sistema de reglas configurables por el dueño para clasificar clientes (Registrado, Confiable, No Confiable) y asignar límites de crédito.
-Notificaciones (Patrón Strategy + Adapter): Desacoplamiento de proveedores externos (Gmail, Twilio) para envíos de alertas por Email o WhatsApp.
-
-💻 Stack Tecnológico
-
-Backend: Java 17 con Spring Boot (Spring Web, Data JPA, Security).
-Base de Datos: PostgreSQL para asegurar transacciones ACID en un dominio relacional complejo.
-Frontend: SPA moderna desarrollada en React + TypeScript enfocada en la usabilidad.
-Integraciones: API de Mercado Pago (QR), Twilio (WhatsApp) y Gmail (Email) mediante adaptadores.
-
-
-📈 Características Principales
-RBAC (Role-Based Access Control): Separación estricta de responsabilidades entre dueños y empleados.
-Soft Delete: Mantenimiento de integridad referencial y trazabilidad histórica.
-Gestión de Cambios: Proceso automatizado de devoluciones con generación de saldo a favor o cobro de diferencias.
