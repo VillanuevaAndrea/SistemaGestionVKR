@@ -68,7 +68,7 @@ const Empleados: React.FC = () => {
     }
   }, [searchTerm, paginaActual]);
 
-  // Debounce para la búsqueda (Igual que en Clientes)
+  // Debounce para la búsqueda 
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
       fetchEmpleados();
@@ -161,7 +161,7 @@ const Empleados: React.FC = () => {
         </button>
       </div>
 
-      {/* BUSCADOR (Formato Clientes) */}
+      {/* BUSCADOR */}
       <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex gap-4">
         <div className="flex-1 relative">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
@@ -240,7 +240,7 @@ const Empleados: React.FC = () => {
         </div>
       )}
 
-      {/* PAGINACIÓN (Formato Clientes) */}
+      {/* PAGINACIÓN */}
       <div className="bg-white px-8 py-4 border border-slate-200 rounded-3xl flex justify-between items-center text-[11px] font-bold text-slate-400 uppercase tracking-wider shadow-sm">
         <span>Página {paginaActual + 1} de {totalPaginas}</span>
         <div className="flex gap-2">
@@ -272,7 +272,7 @@ const Empleados: React.FC = () => {
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white w-full max-w-2xl rounded-[40px] shadow-2xl p-10 space-y-8 animate-in zoom-in duration-200 overflow-hidden select-none">
             
-            {/* Encabezado del Modal (Igual a Clientes) */}
+            {/* Encabezado del Modal*/}
             <div className="flex justify-between items-center border-b border-slate-50 pb-6">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center">
@@ -287,7 +287,7 @@ const Empleados: React.FC = () => {
               </button>
             </div>
 
-            {/* Cuerpo del Modal con Scroll (Igual a Clientes) */}
+            {/* Cuerpo del Modal con Scroll */}
             <div className="max-h-[60vh] pr-2 space-y-6 px-2 pb-6 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-200">
               
               {/* Nombre y Apellido */}
@@ -385,7 +385,7 @@ const Empleados: React.FC = () => {
               </div>
             </div>
 
-            {/* Botones de Acción (Igual a Clientes) */}
+            {/* Botones de Acción */}
             <div className="flex gap-4 pt-6 border-t border-slate-50">
               <button 
                 onClick={() => setActiveModal(null)} 

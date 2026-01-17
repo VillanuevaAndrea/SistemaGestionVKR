@@ -15,22 +15,24 @@ import { AuthProvider, useAuth } from './context/AuthContext.js';
 import GlobalErrorModal from './components/GlobalErrorModal';
 import ForcePasswordChangeModal from './components/ForcePasswordChangeModal';
 
-// Creamos este componente para poder usar useAuth()
+
+// Componente de rutas separado para poder usar useAuth()
 const AppRoutes: React.FC = () => {
   const { user, recargarSesion } = useAuth();
 
   return (
     <>
-      {/* Si es primer login, el modal bloquea todo el viewport */}
+    
+      {/* Flujo de Seguridad: Cambio de contraseña obligatorio en el primer ingreso */}
       {user?.primerLogin && (
         <ForcePasswordChangeModal onPasswordChanged={recargarSesion} />
       )}
 
       <Routes>
-        {/* Ruta pública */}
+   
         <Route path="/login" element={<Login />} />
 
-        {/* Rutas privadas envueltas */}
+        
         <Route
           path="/*"
           element={

@@ -9,12 +9,11 @@ export const api = axios.create({
 });
 
 // --- INTERCEPTOR DE REQUEST ---
-// Se ejecuta ANTES de que la petición salga hacia el servidor
+// Se ejecuta antes de enviar la petición: inyecta el token Bearer automáticamente
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
     if (token) {
-      // Inyecta el Bearer token automáticamente en TODAS las peticiones
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
@@ -23,8 +22,7 @@ api.interceptors.request.use(
 );
 
 // --- INTERCEPTOR DE RESPONSE ---
-// Se ejecuta CUANDO llega la respuesta, ANTES de que llegue a tu componente
-// --- INTERCEPTOR DE RESPONSE ---
+// Maneja la respuesta del servidor antes de que llegue al componente
 api.interceptors.response.use(
   (response) => response,
   (error) => {

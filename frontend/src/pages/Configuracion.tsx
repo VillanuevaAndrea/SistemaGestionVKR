@@ -240,11 +240,11 @@ const Configuracion: React.FC = () => {
     setEditingRole(rol);
     setTempPermisos(rol.permisos.map(p => p.codigo)); 
     setShowPermissionsModal(true);
-    setIsEditing(false); // Siempre abre en modo lectura por defecto
+    setIsEditing(false); 
   };
 
   const handleToggleTempPermiso = (permisoCodigo) => {
-    if (!isEditing) return; // Si no estamos editando, no hace nada
+    if (!isEditing) return; 
     setTempPermisos(prev => 
       prev.includes(permisoCodigo) 
         ? prev.filter(c => c !== permisoCodigo) 

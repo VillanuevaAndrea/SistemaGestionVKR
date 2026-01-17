@@ -62,9 +62,9 @@ const Ventas: React.FC = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
 
-  // ==========================================
-  // BÚSQUEDA DE CLIENTES (Debounce 1 letra)
-  // ==========================================
+  // =====================
+  // BÚSQUEDA DE CLIENTES 
+  // =====================
   const fetchClientesSugeridos = useCallback(async () => {
     if (clientSearch.trim().length < 1 || selectedClient) {
       setClientesSugeridos([]);
@@ -227,7 +227,6 @@ const Ventas: React.FC = () => {
       setShowPagoModal(false);
       setShowPostVentaModal(false);
 
-      // Éxito
       setSuccessMessage(`¡Pago registrado con éxito!\nVenta #${lastCreatedVenta.id} pagada.`);
       setShowSuccessModal(true);
       
@@ -261,7 +260,6 @@ const Ventas: React.FC = () => {
       setShowPostVentaModal(false);
       setMontoReserva('');
 
-      // Éxito
       setSuccessMessage(`¡Reserva confirmada!\nSe registró la seña para la venta #${lastCreatedVenta.id}.`);
       setShowSuccessModal(true);
 
@@ -310,11 +308,10 @@ const Ventas: React.FC = () => {
     setShowReservaModal(true);
   };
 
-  // Suma de los productos cargados actualmente en el terminal
+  
   const subtotalCarrito = cart.reduce((acc, item) => acc + (item.precioUnitario * item.cantidad), 0);
 
-  // El monto real de la operación: 
-  // Si es cambio, es (Lo nuevo - Lo ya pagado). Si es menor a 0, queda en 0 (porque el back maneja el resto).
+
   const totalFinal = (showPostVentaModal || showPagoModal || showReservaModal) && lastCreatedVenta
     ? lastCreatedVenta.total
     : isExchangeMode && selectedVenta 
@@ -323,7 +320,7 @@ const Ventas: React.FC = () => {
 
   return (
     <div className="space-y-8 animate-in h-full">
-      {/* 1. SECCION: HEADER */}
+      {/*  HEADER */}
       {view !== 'DETAIL' && (
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
@@ -336,12 +333,12 @@ const Ventas: React.FC = () => {
         </div>
       )}
 
-      {/* 2. SECCION: LISTADO VENTAS */}
+      {/* LISTADO VENTAS */}
       {view === 'LIST' && (
         <div className="space-y-8">
-          {/* BARRA DE FILTROS RESTAURADA */}
+          
 <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
-  {/* Buscar por cliente: ocupa 2 columnas */}
+
   <div className="space-y-1 lg:col-span-2">
     <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wide ml-1">Buscar por cliente</label>
     <div className="relative">
@@ -355,7 +352,7 @@ const Ventas: React.FC = () => {
     </div>
   </div>
 
-  {/* Estado: achicado a 1 sola columna */}
+
   <div className="space-y-1 lg:col-span-1">
     <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wide ml-1">Estado</label>
     <select 
@@ -371,7 +368,6 @@ const Ventas: React.FC = () => {
     </select>
   </div>
 
-  {/* Orden: achicado a 1 sola columna */}
   <div className="space-y-1 lg:col-span-1">
     <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wide ml-1">Orden</label>
     <select 
@@ -384,7 +380,7 @@ const Ventas: React.FC = () => {
     </select>
   </div>
 
-  {/* Acciones: ahora ocupa 2 columnas (más largo) */}
+  
   <div className="space-y-1 lg:col-span-2">
     <label className="text-[10px] font-bold text-transparent uppercase tracking-wide ml-1 select-none">Acciones</label>
     <div className="flex gap-2">
@@ -483,7 +479,7 @@ const Ventas: React.FC = () => {
         </div>
       )}
 
-      {/* 3. SECCION: TERMINAL POS */}
+      {/* TERMINAL POS */}
       {view === 'POS' && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 flex-1 min-h-[600px] overflow-hidden pb-4">
           <div className="lg:col-span-8 flex flex-col gap-6">
@@ -572,7 +568,7 @@ const Ventas: React.FC = () => {
       ${totalFinal.toLocaleString()}
     </p>
 
-    {/* Info extra solo en modo cambio para que el cajero no se confunda */}
+    
     {isExchangeMode && selectedVenta && (
       <div className="mt-4 space-y-2">
         <div className="flex justify-between text-[14px] font-bold uppercase text-slate-400">
@@ -602,7 +598,7 @@ const Ventas: React.FC = () => {
         </div>
       )}
 
-      {/* 4. SECCION: DETALLE VENTA (RESTAURADA) */}
+      {/* DETALLE VENTA */}
       {view === 'DETAIL' && selectedVenta && (
         <div className="space-y-6 animate-in">
           <button onClick={() => setView('LIST')} className="flex items-center gap-2 text-slate-500 hover:text-indigo-600 font-semibold text-sm transition-colors"><ArrowLeft className="w-4 h-4" /> Volver al Historial</button>
@@ -622,7 +618,7 @@ const Ventas: React.FC = () => {
                 <p className="text-sm font-medium text-slate-400 flex items-center gap-1.5"><Hash className="w-3.5 h-3.5" /> {selectedVenta.id}</p>
                 <p className="text-sm font-medium text-slate-400 flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" /> {new Date(selectedVenta.fecha).toLocaleDateString('es-AR')}</p>
                 
-                {/* MÉTODO DE PAGO: Siempre visible */}
+                {/* MÉTODO DE PAGO*/}
                 <p className="text-sm font-bold text-slate-500 flex items-center gap-1.5 bg-white border border-slate-200 px-2.5 py-1 rounded-xl shadow-sm">
                   <CreditCard className="w-3.5 h-3.5 text-indigo-500" /> 
                   {selectedVenta.metodoPago ? selectedVenta.metodoPago.replace('_', ' ') : 'Pendiente de cobro'}
@@ -684,7 +680,7 @@ const Ventas: React.FC = () => {
   </div>
 
   <div className="flex gap-3">
-    {/* REGLA: Cambio (Pagada o Reservada) */}
+   
     {(selectedVenta.estadoNombre === 'VentaPagada' || selectedVenta.estadoNombre === 'VentaReservada') && (
       <button 
         onClick={handleStartExchange}
@@ -694,7 +690,7 @@ const Ventas: React.FC = () => {
       </button>
     )}
 
-    {/* REGLA: Cancelar (Pagada o Reservada) */}
+    
     {(selectedVenta.estadoNombre === 'VentaPagada' || selectedVenta.estadoNombre === 'VentaReservada') && (
       <button 
         onClick={() => handleAccionVenta('CANCELAR')}
@@ -714,7 +710,7 @@ const Ventas: React.FC = () => {
           <DollarSign className="w-4 h-4" /> Cobrar Total
         </button>
 
-        {/* Botón Reservar (Solo si hay cliente) */}
+
         <button 
           disabled={!selectedVenta.cliente}
           onClick={handleReservarDesdeDetalle}
@@ -727,7 +723,7 @@ const Ventas: React.FC = () => {
           <CreditCard className="w-4 h-4" /> Reservar
         </button>
 
-        {/* Botón Rechazar (Ya lo tenías) */}
+    
         <button 
           onClick={() => handleAccionVenta('RECHAZAR')}
           className="flex items-center gap-2 px-6 py-3.5 bg-rose-50 border border-rose-100 text-rose-600 rounded-2xl font-bold text-[11px] uppercase hover:bg-rose-100 transition-all active:scale-95"
@@ -742,7 +738,7 @@ const Ventas: React.FC = () => {
         </div>
       )}
 
-      {/* 5. MODAL POST-VENTA */}
+      {/* MODAL POST-VENTA */}
       {showPostVentaModal && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
           <div className="bg-white w-full max-w-lg rounded-[40px] shadow-2xl p-10 space-y-8 animate-in zoom-in duration-200">
@@ -751,7 +747,6 @@ const Ventas: React.FC = () => {
                 <CheckCircle2 className="w-10 h-10" />
               </div>
               
-              {/* Título dinámico */}
               <h3 className="text-2xl font-bold text-slate-900 tracking-tight uppercase">
                 {lastCreatedVenta?.estadoNombre === 'VentaPagada' ? '¡Cambio Procesado!' : '¡Venta Iniciada!'}
               </h3>
@@ -764,7 +759,7 @@ const Ventas: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Si la venta ya está pagada (por ser un cambio), estos botones podrían llevar al detalle o imprimir */}
+             
               <button 
                 onClick={() => { setShowPagoModal(true); setShowPostVentaModal(false); }}
                 className="group p-6 bg-slate-900 text-white rounded-3xl flex flex-col items-center gap-3 hover:bg-black transition-all active:scale-95"
@@ -793,7 +788,7 @@ const Ventas: React.FC = () => {
         </div>
       )}
 
-      {/* 6. MODAL RESERVA */}
+      {/* MODAL RESERVA */}
 {showReservaModal && (
   <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[110] flex items-center justify-center p-4">
     <div className="bg-white w-full max-w-md rounded-[40px] shadow-2xl p-10 space-y-8 animate-in zoom-in duration-200">
@@ -812,7 +807,7 @@ const Ventas: React.FC = () => {
           </div>
           <div className="text-right">
             <p className="text-[10px] font-bold text-indigo-500 uppercase mb-1 tracking-widest">Pago Mínimo</p>
-            {/* Mostramos el campo que pediste */}
+         
             <p className="text-lg font-bold text-indigo-600">
               ${lastCreatedVenta?.pagoMinimoParaCredito?.toLocaleString() || '0'}
             </p>
@@ -838,7 +833,6 @@ const Ventas: React.FC = () => {
           />
         </div>
         
-        {/* Mensajes de Saldo y Advertencia de Pago Mínimo */}
         <div className="space-y-1 px-2">
           <p className="text-[11px] text-slate-500 font-medium italic">
             * El saldo restante 
@@ -847,14 +841,14 @@ const Ventas: React.FC = () => {
             </span> se sumará a la deuda del cliente.
           </p>
           
-          {/* Alerta 1: Monto ingresado es menor al mínimo requerido */}
+         
           {montoReserva && parseFloat(montoReserva) < (lastCreatedVenta?.pagoMinimoParaCredito || 0) && (
             <p className="text-[10px] text-rose-500 font-bold uppercase flex items-center gap-1">
               <AlertCircle className="w-3 h-3" /> El monto es menor al pago mínimo requerido.
             </p>
           )}
 
-          {/* Alerta 2: Monto mayor al total (Nueva) */}
+         
           {montoReserva && parseFloat(montoReserva) > totalFinal && (
             <p className="text-[10px] text-rose-500 font-bold uppercase flex items-center gap-1">
               <AlertCircle className="w-3 h-3" /> El monto no puede superar el total de ${totalFinal.toLocaleString()}
@@ -889,7 +883,7 @@ const Ventas: React.FC = () => {
   </div>
 )}
 
-      {/* 7. MODAL PAGO */}
+      {/* MODAL PAGO */}
       {showPagoModal && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[110] flex items-center justify-center p-4">
           <div className="bg-white w-full max-w-md rounded-[40px] shadow-2xl p-10 space-y-8 animate-in zoom-in duration-200">

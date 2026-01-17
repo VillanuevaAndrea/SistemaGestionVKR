@@ -8,17 +8,13 @@ import EmpleadoService from '../services/empleadoService.js';
 const Usuario: React.FC = () => {
     const { user, recargarSesion, loading: authLoading, logout } = useAuth();
 
-    // Manejo de modales unificado
     const [activeModal, setActiveModal] = useState<'EDIT_PROFILE' | 'CHANGE_PASSWORD' | 'NOTIFICATIONS' | null>(null);
 
-    // ESTADOS PARA EL MODAL DE ÉXITO (Igual que en Configuración)
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
-
-    // ESTADO PARA ERRORES DE FORMULARIO (En rojo debajo del input)
+  
     const [formError, setFormError] = useState<string | null>(null);
 
-    // Estado único de formulario (estilo Productos)
     const [formData, setFormData] = useState({
         mail: '',
         telefono: '',
@@ -29,7 +25,6 @@ const Usuario: React.FC = () => {
         notifWhatsApp: false
     });
 
-    // Sincronizar formData cuando se abre un modal
     useEffect(() => {
         setFormError(null);
         if (activeModal === 'EDIT_PROFILE' && user) {
@@ -44,7 +39,7 @@ const Usuario: React.FC = () => {
         }
     }, [activeModal, user]);
 
-    // Validar coincidencia de contraseñas en tiempo real
+    
     useEffect(() => {
         if (activeModal === 'CHANGE_PASSWORD' && formData.passConfirmar && formData.passNueva !== formData.passConfirmar) {
             setFormError("Las contraseñas no coinciden");
@@ -70,7 +65,7 @@ const Usuario: React.FC = () => {
         }
     };
 
-    // ACCIÓN: CAMBIAR CONTRASEÑA (POST)
+
     const handleCambiarPassword = async () => {
         if (formData.passNueva !== formData.passConfirmar) {
             alert("Las contraseñas no coinciden");
@@ -103,7 +98,7 @@ const Usuario: React.FC = () => {
     return (
         
         <div className="max-w-2xl mx-auto space-y-8 animate-in fade-in"> 
-            {/* TARJETA DE PERFIL */}
+            {/* card de perfil */}
             <div className="bg-white p-12 rounded-[40px] border border-slate-200 shadow-sm text-center space-y-6">
                 <div className="w-32 h-32 bg-indigo-600 text-white rounded-[40px] mx-auto flex items-center justify-center shadow-2xl shadow-indigo-200">
                     <span className="text-4xl font-black">{user?.nombreDeUsuario?.charAt(0).toUpperCase()}</span>
@@ -241,7 +236,7 @@ const Usuario: React.FC = () => {
                                 onChange={e => setFormData({...formData, passConfirmar: e.target.value})}
                                 className="w-full bg-slate-50 border-none rounded-[24px] p-5 font-bold focus:ring-4 focus:ring-indigo-500/10" 
                             />
-                            {/* MENSAJE DE ERROR EN ROJO */}
+                           
                             {formError && (
                                 <div className="flex items-center gap-2 text-rose-500 px-4 animate-in fade-in slide-in-from-top-1">
                                     <AlertCircle className="w-4 h-4" />

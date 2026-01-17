@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Aquí puedes agregar tus estilos personalizados después */
+
 body {
   @apply bg-slate-50 text-slate-900;
   font-family: 'Inter', sans-serif;

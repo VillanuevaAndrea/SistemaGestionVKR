@@ -12,7 +12,7 @@ const ForcePasswordChangeModal = ({ onPasswordChanged }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    // Validar coincidencia en tiempo real
+    
     const mismatch = formData.passConfirmar !== '' && formData.passNueva !== formData.passConfirmar;
 
     const handleSubmit = async () => {
@@ -21,19 +21,19 @@ const ForcePasswordChangeModal = ({ onPasswordChanged }) => {
         setError(null);
 
         try {
-            // 1. Llamada al back. El back responde con el nuevo token
+            // 1. Enviamos las credenciales al servicio de autenticación
             const response = await AuthService.cambiarContrasenia({
                 contraseniaActual: formData.passActual,
                 contraseniaNueva: formData.passNueva
             });
             
-            // 2. GUARDAR EL TOKEN ANTES QUE NADA
+            // 2. Actualizamos el token de sesión para mantener la conexión activa
             if (response && response.token) {
                 localStorage.setItem("token", response.token);
                 api.defaults.headers.common['Authorization'] = `Bearer ${response.token}`;
             }
 
-            // 4. RECARGAR LA SESIÓN
+            // 3. Notificamos al contexto global para refrescar los datos del usuario
             await onPasswordChanged();
         } catch (err: any) {
             console.error(err);
@@ -47,7 +47,7 @@ const ForcePasswordChangeModal = ({ onPasswordChanged }) => {
         <div className="fixed inset-0 bg-slate-900/90 backdrop-blur-xl z-[999] flex items-center justify-center p-4 overflow-hidden select-none">
             <div className="bg-white w-full max-w-md rounded-[40px] shadow-2xl p-10 space-y-8 animate-in zoom-in duration-300">
                 
-                {/* ENCABEZADO */}
+                
                 <div className="text-center space-y-3">
                     <div className="w-20 h-20 bg-indigo-50 text-indigo-600 rounded-[30px] mx-auto flex items-center justify-center shadow-inner">
                         <Shield className="w-10 h-10" />
@@ -60,7 +60,7 @@ const ForcePasswordChangeModal = ({ onPasswordChanged }) => {
                     </p>
                 </div>
 
-                {/* FORMULARIO */}
+                
                 <div className="space-y-4">
                     <div className="space-y-1">
                         <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Clave Actual</label>
@@ -98,7 +98,7 @@ const ForcePasswordChangeModal = ({ onPasswordChanged }) => {
                         />
                     </div>
 
-                    {/* FEEDBACK DE ERROR */}
+                   
                     {(error || mismatch) && (
                         <div className="flex items-center gap-2 text-rose-500 px-2 animate-in fade-in slide-in-from-top-1">
                             <AlertCircle className="w-4 h-4 flex-shrink-0" />
@@ -109,7 +109,6 @@ const ForcePasswordChangeModal = ({ onPasswordChanged }) => {
                     )}
                 </div>
 
-                {/* BOTÓN DE ACCIÓN */}
                 <button
                     onClick={handleSubmit}
                     disabled={!formData.passActual || !formData.passNueva || !formData.passConfirmar || mismatch || loading}

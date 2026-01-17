@@ -154,6 +154,7 @@ const Reservas: React.FC = () => {
           )}
         </>
       ) : (
+        
         /* --- FICHA DE DETALLE --- */
         <div className="space-y-6 animate-in">
           <button onClick={() => setSelectedReserva(null)} className="flex items-center gap-2 text-slate-500 hover:text-indigo-600 font-semibold text-sm">

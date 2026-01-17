@@ -21,7 +21,7 @@ public class ConfiguracionService {
   @EventListener(ApplicationReadyEvent.class)
   @Transactional
   public void inicializarConfiguracion() {
-    // Cargar o crear configuración por defecto
+  
     ConfiguracionTienda config = configuracionTiendaRepository.findFirstByOrderByIdAsc()
         .orElseGet(() -> {
           ConfiguracionTienda nuevaConfig = new ConfiguracionTienda();
@@ -34,7 +34,7 @@ public class ConfiguracionService {
           return configuracionTiendaRepository.save(nuevaConfig);
         });
 
-    // Establecer como instancia singleton
+    
     ConfiguracionTienda.setInstance(config);
 
     System.out.println("Configuración de tienda cargada: " + config.getNombreEmpresa());

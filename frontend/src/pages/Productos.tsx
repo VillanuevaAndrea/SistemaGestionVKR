@@ -142,7 +142,7 @@ const Productos: React.FC = () => {
           proveedorId: productToEdit.proveedor?.id.toString() || '',
           precio: productToEdit.precio.toString() || ''
         });
-        // CARGAMOS LA CATEGORÍA PADRE AQUÍ:
+      
         setSelectedCategoryInForm(productToEdit.subcategoria?.categoriaId?.toString() || '');
       }
     }
@@ -248,9 +248,7 @@ const Productos: React.FC = () => {
     }
   };
 
-  // ===================================================================================================================
-  // RETURN
-  // ===================================================================================================================
+ //=========
 
   return (
     <div className="space-y-8 animate-in">
@@ -307,9 +305,9 @@ const Productos: React.FC = () => {
             ))}
           </select>
         </div>
-        {/* 4. Botones de Acción (Stock Bajo y X) */}
+        {/* Botones de Acción */}
         <div className="space-y-1">
-          {/* Este label invisible asegura que el espacio de arriba sea el mismo que los otros 4 bloques */}
+        
           <label className="text-[10px] font-bold text-transparent uppercase tracking-wide ml-1 select-none">Filtros</label>
           <div className="flex gap-2">
             <button 

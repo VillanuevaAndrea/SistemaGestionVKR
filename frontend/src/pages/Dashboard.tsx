@@ -39,11 +39,10 @@ const Dashboard: React.FC = () => {
       ]);
 
       const variantesCriticas = respCriticos.content.flatMap((p: any) => 
-        // Filtramos solo las variantes (detalles) que realmente tienen stock bajo
         (p.detalles || []).filter((d: any) => d.stockDisponible <= d.stockMinimo)
         .map((d: any) => ({
           ...d,
-          nombreProducto: p.nombre // Guardamos el nombre del producto padre para el diseño
+          nombreProducto: p.nombre 
         }))
       );
 
@@ -82,7 +81,7 @@ const Dashboard: React.FC = () => {
   return (
     <div className="min-h-[calc(100vh-200px)]">
       {loading ? (
-        /* SPINNER CENTRADO - IGUAL A TU TABLA */
+        /* SPINNER */
         <div className="p-40 text-center flex flex-col items-center justify-center gap-4 animate-in fade-in duration-500">
           <div className="w-12 h-12 border-4 border-indigo-600/20 border-t-indigo-600 rounded-full animate-spin"></div>
           <p className="text-slate-400 font-bold uppercase tracking-widest text-xs tracking-[0.2em]">
@@ -90,7 +89,7 @@ const Dashboard: React.FC = () => {
           </p>
         </div>
       ) : (
-        /* CONTENIDO QUE APARECE DESPUÉS DEL DELAY */
+      
         <div className="space-y-8">
           {/* STAT CARDS */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

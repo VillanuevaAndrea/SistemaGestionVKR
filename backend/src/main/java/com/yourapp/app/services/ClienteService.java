@@ -105,7 +105,7 @@ public class ClienteService {
                 cb.or(
                     cb.like(cb.lower(root.get("nombre")), valorBusqueda),
                     cb.like(cb.lower(root.get("apellido")), valorBusqueda),
-                    cb.like(root.get("dni"), valorBusqueda) // Usamos like por si mandan DNI parcial
+                    cb.like(root.get("dni"), valorBusqueda) 
                 )
             );
         }

@@ -188,7 +188,7 @@ const Clientes = () => {
         </div>
       </div>
 
-      {/* Cards - CON LÓGICA DE LOADING IGUAL A PRODUCTOS */}
+      {/* Cards */}
       {loading ? (
         <div className="bg-white rounded-[40px] border border-slate-200 p-20 text-center flex flex-col items-center justify-center gap-4">
           <div className="w-10 h-10 border-4 border-indigo-600/20 border-t-indigo-600 rounded-full animate-spin"></div>
@@ -309,7 +309,7 @@ const Clientes = () => {
         </div>
       )}
 
-      {/* --- COSITO FINAL DEL PAGINADO (EXACTAMENTE IGUAL A PRODUCTOS) --- */}
+      {/*  PAGINADO */}
       <div className="bg-white px-8 py-4 border border-slate-200 rounded-3xl flex justify-between items-center text-[11px] font-bold text-slate-400 uppercase tracking-wider shadow-sm">
         <span>Página {currentPage + 1} de {totalPages}</span>
         <div className="flex gap-2">
@@ -413,7 +413,7 @@ const Clientes = () => {
                 </div>
               </div>
 
-              {/* Límite de Crédito y Categoría (Sin asterisco) */}
+              {/* Límite de Crédito y Categoría  */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <label className="text-xs font-bold text-slate-400 ml-1 uppercase">Límite de Crédito ($)</label>

@@ -40,7 +40,6 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     !item.permiso || tienePermiso(item.permiso)
   );
 
-  // Cerrar menú móvil al cambiar de ruta
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location.pathname]);
@@ -73,7 +72,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <header className="bg-slate-900 text-white sticky top-0 z-50 shadow-md border-b border-slate-800">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 h-24 flex items-center justify-between">
           <div className="flex items-center gap-6 lg:gap-8">
-            {/* Mobile Menu Button */}
+           
             <button 
               onClick={() => setIsMobileMenuOpen(true)}
               className="lg:hidden p-2 text-slate-400 hover:text-white transition-colors"
@@ -86,7 +85,6 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               <span className="text-2xl font-black tracking-tight hidden sm:block">{config?.nombreEmpresa || 'Cargando...'}</span>
             </div>
 
-            {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-2">
               {itemsVisibles
               .map((item) => (
@@ -126,7 +124,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                   className="flex items-center gap-3 sm:gap-5 pl-3 sm:pl-6 border-l border-slate-700 group"
                 >
                   <div className="text-right hidden md:block">
-                    {/* DESMOCKEADO: Nombre de usuario y nombre del Rol */}
+                   
                     <p className="text-sm font-black text-white group-hover:text-indigo-400 transition-colors uppercase tracking-tight">
                       {user?.nombreDeUsuario || 'Usuario'}
                     </p>
@@ -161,7 +159,6 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         </div>
       </header>
 
-      {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-[100] lg:hidden">
           {/* Backdrop */}
